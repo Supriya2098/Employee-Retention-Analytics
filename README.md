@@ -15,27 +15,6 @@ Analyze engagement and satisfaction levels
 
 ## 📑 Table of Contents
 
-
-Business Problem
-
-Dataset
-
-Tools & Techniques
-
-Project Structure
-
-Data Cleaning & Preparation
-
-Research Questions & Key Findings
-
-Dashboard
-
-How to Run This Project
-
-Final Recommendations
-
-Author
-
 Business Problem
 
 Dataset
