@@ -1,4 +1,4 @@
-👩‍💼 ###Employee Retention Analytics Dashboard (Tableau)
+👩‍💼 Employee Retention Analytics Dashboard (Tableau)
 📌 Project Overview
 
 This project presents an end-to-end Employee Retention Analytics Dashboard built using Tableau on an HR workforce dataset. The dashboard provides insights into workforce distribution, recruitment effectiveness, employee performance, and engagement trends to support data-driven HR decision-making.
@@ -35,7 +35,7 @@ Final Recommendations
 
 Author
 
-Business Problem
+🚨 Business Problem
 
 Organizations often face challenges related to employee attrition, workforce productivity, and recruitment effectiveness. High employee turnover increases hiring costs, reduces operational efficiency, and negatively impacts organizational knowledge retention.
 
@@ -51,7 +51,7 @@ Analyze performance and absenteeism patterns
 
 This project develops an interactive HR analytics dashboard using Tableau to help HR leaders make data-driven workforce decisions.
 
-Dataset
+📊 Dataset
 
 Dataset Name: HR Workforce Dataset
 Format: CSV
@@ -74,7 +74,7 @@ Dataset Size
 
 311 Employees
 36 Columns
-Tools & Techniques
+🛠 Tools & Techniques
 
 Tools used in this project:
 
@@ -86,7 +86,7 @@ Jupyter Notebook – Exploratory Data Analysis
 
 Git & GitHub – Version control and project hosting
 
-Project Structure
+📁 Project Structure
 Employee-Retention-Analytics/
 │
 ├── dashboard/
@@ -106,7 +106,7 @@ Employee-Retention-Analytics/
 │
 ├── README.md
 └── HR_Analytics_Report.pdf
-Data Cleaning & Preparation
+🧹 Data Cleaning & Preparation
 
 The dataset was preprocessed to ensure accuracy and usability.
 
@@ -130,11 +130,11 @@ Removed redundant employee ID fields
 
 Prepared dataset for Tableau visualization
 
-Research Questions & Key Findings
+🔎 Research Questions & Key Findings
 
 This project answers 22 key HR analytics business questions.
 
-Workforce Analytics
+👥 Workforce Analytics
 
 What is the total number of employees in the organization?
 
@@ -148,7 +148,7 @@ Which positions have the highest number of employees?
 
 How are employees distributed geographically by state?
 
-Recruitment Analytics
+📈 Recruitment Analytics
 
 Which recruitment sources hire the most employees?
 
@@ -160,7 +160,7 @@ Does diversity job fair recruitment influence retention?
 
 Which recruitment sources result in longer employee tenure?
 
-Performance Analytics
+📊 Performance Analytics
 
 What is the distribution of employee performance scores?
 
@@ -174,7 +174,7 @@ Does employee tenure influence performance ratings?
 
 Which positions have the highest-performing employees?
 
-Engagement Analytics
+💡 Engagement Analytics
 
 Does employee satisfaction influence attrition?
 
@@ -186,25 +186,25 @@ Which departments have the lowest employee satisfaction levels?
 
 Is employee engagement related to performance scores?
 
-Key Findings
+📌 Key Findings
 
-The dataset shows an employee attrition rate of approximately 33%.
+The dataset shows an employee attrition rate of approximately 33%
 
-The Production department represents the largest workforce share.
+The Production department represents the largest workforce share
 
-Indeed and LinkedIn are the most effective recruitment channels.
+Indeed and LinkedIn are the most effective recruitment channels
 
-Employees with higher engagement scores show stronger performance outcomes.
+Employees with higher engagement scores show stronger performance outcomes
 
-Increased absenteeism is associated with lower performance scores.
+Increased absenteeism is associated with lower performance scores
 
 These insights help HR teams identify retention risks and improve workforce management strategies.
 
-Dashboard
+📊 Dashboard
 
 This project includes four interactive HR analytics dashboards.
 
-Workforce Analytics
+👥 Workforce Analytics
 
 Total Employees
 
@@ -218,7 +218,7 @@ Gender Distribution
 
 Employee Distribution by State
 
-Recruitment Analytics
+📈 Recruitment Analytics
 
 Recruitment Source Distribution
 
@@ -228,7 +228,7 @@ Recruitment Source vs Attrition
 
 Diversity Job Fair Impact
 
-Performance Analytics
+📊 Performance Analytics
 
 Performance Score Distribution
 
@@ -240,7 +240,7 @@ Tenure vs Performance
 
 Top Performing Positions
 
-Engagement Analytics
+💡 Engagement Analytics
 
 Satisfaction vs Attrition
 
@@ -252,13 +252,13 @@ Satisfaction by Department
 
 Engagement vs Performance
 
-How to Run This Project
+▶️ How to Run This Project
 
 Clone the repository:
 
 git clone https://github.com/yourusername/employee-retention-analytics.git
 
-Steps to run the project:
+Steps:
 
 Open Tableau Desktop
 
@@ -272,10 +272,7 @@ employee_retention_dashboard.twbx
 
 Refresh data and explore the dashboards
 
-Final Recommendations
-
-Based on the dashboard insights, the following HR strategies are recommended.
-
+📈 Final Recommendations
 Workforce Optimization
 
 Monitor departments with higher attrition trends
@@ -286,21 +283,15 @@ Recruitment Strategy
 
 Prioritize high-performing recruitment channels such as LinkedIn and Indeed
 
-Improve recruitment evaluation processes
-
 Performance Management
 
 Track absenteeism trends impacting productivity
-
-Reward high-performing employees and departments
 
 Employee Engagement
 
 Improve employee engagement through workplace satisfaction initiatives
 
-Monitor engagement metrics regularly
-
-Author
+👩‍💻 Author
 
 Supriya Kusuma
 Aspiring Data Analyst | Tableau | Power BI | SQL | Python | HR Analytics
