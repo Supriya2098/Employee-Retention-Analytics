@@ -8,9 +8,9 @@ This project presents an end-to-end **Employee Retention Analytics Dashboard** b
 
 ## 📑 Table of Contents
 
-- [Project Overview](##project-overview)
-- [Business Problem](##business-problem)
-- [Dataset](##dataset)
+- [Project Overview](#project-overview)
+- [Business Problem](#business-problem)
+- [Dataset](#dataset)
 - [Tools & Techniques](#tools--techniques)
 - [Project Structure](#project-structure)
 - [Data Cleaning & Preparation](#data-cleaning--preparation)
@@ -70,40 +70,24 @@ Employee attrition leads to increased hiring costs, reduced productivity, and op
 
 ---
 
-## 📂 Project Structure
-Employee-Retention-Analytics/
-│
-├── 📂 data/
-│   ├── raw/
-│   │   └── hr_dataset.csv
-│   │
-│   └── processed/
-│       └── cleaned_hr_dataset.csv
-│
-├── 📂 notebooks/
-│   └── hr_data_exploration.ipynb
-│
-├── 📂 scripts/
-│   └── data_cleaning.py
-│
-├── 📂 dashboard/
-│   ├── workforce_dashboard.png
-│   ├── recruitment_dashboard.png
-│   ├── performance_dashboard.png
-│   └── engagement_dashboard.png
-│
-├── 📂 tableau/
-│   └── employee_retention_dashboard.twbx
-│
-├── 📂 presentation/
-│   └── employee_retention_presentation.pptx
-│
-├── 📂 docs/
-│   └── project_report.pdf
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
+
+## 🔄 Project Workflow
+
+Data Collection (HR Dataset)  
+↓  
+Data Cleaning & Preprocessing (Python / Excel)  
+↓  
+Feature Engineering (Tenure, Attrition, KPIs)  
+↓  
+Exploratory Data Analysis (EDA)  
+↓  
+Tableau Dashboard Development  
+↓  
+Insights Generation  
+↓  
+Business Recommendations  
+
+
 ---
 
 ## 🧹 Data Cleaning & Preparation
@@ -198,7 +182,6 @@ Employee-Retention-Analytics/
 ## ▶️ How to Run This Project
 
 1. Clone the repository:
-2. 
 2. Open Tableau Public/Desktop  
 3. Load dataset from `/dataset`  
 4. Open dashboard file  
