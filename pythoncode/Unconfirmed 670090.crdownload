@@ -1,0 +1,2005 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "7b68bafd-4778-4245-8fa0-0861c15af802",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import pandas as pd\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "3c6d0eb6-27fc-4b4e-bb6d-14ef985860ac",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'C:\\\\Users\\\\DELL'"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import os\n",
+    "os.getcwd()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "92f41bc0-6f4e-4daf-87ec-38181fe7070b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df=pd.read_csv(\"Bank Customer Churn Prediction.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "952e3300-fe34-4df2-834d-2b0fe7ca0d07",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>customer_id</th>\n",
+       "      <th>credit_score</th>\n",
+       "      <th>country</th>\n",
+       "      <th>gender</th>\n",
+       "      <th>age</th>\n",
+       "      <th>tenure</th>\n",
+       "      <th>balance</th>\n",
+       "      <th>products_number</th>\n",
+       "      <th>credit_card</th>\n",
+       "      <th>active_member</th>\n",
+       "      <th>estimated_salary</th>\n",
+       "      <th>churn</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>15634602</td>\n",
+       "      <td>619</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>42</td>\n",
+       "      <td>2</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>101348.88</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>15647311</td>\n",
+       "      <td>608</td>\n",
+       "      <td>Spain</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>41</td>\n",
+       "      <td>1</td>\n",
+       "      <td>83807.86</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>112542.58</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>15619304</td>\n",
+       "      <td>502</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>42</td>\n",
+       "      <td>8</td>\n",
+       "      <td>159660.80</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>113931.57</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>15701354</td>\n",
+       "      <td>699</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>39</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>2</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>93826.63</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>15737888</td>\n",
+       "      <td>850</td>\n",
+       "      <td>Spain</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>43</td>\n",
+       "      <td>2</td>\n",
+       "      <td>125510.82</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>79084.10</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9995</th>\n",
+       "      <td>15606229</td>\n",
+       "      <td>771</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>39</td>\n",
+       "      <td>5</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>96270.64</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9996</th>\n",
+       "      <td>15569892</td>\n",
+       "      <td>516</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>35</td>\n",
+       "      <td>10</td>\n",
+       "      <td>57369.61</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>101699.77</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9997</th>\n",
+       "      <td>15584532</td>\n",
+       "      <td>709</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>36</td>\n",
+       "      <td>7</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>42085.58</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9998</th>\n",
+       "      <td>15682355</td>\n",
+       "      <td>772</td>\n",
+       "      <td>Germany</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>42</td>\n",
+       "      <td>3</td>\n",
+       "      <td>75075.31</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>92888.52</td>\n",
+       "      <td>1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9999</th>\n",
+       "      <td>15628319</td>\n",
+       "      <td>792</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>28</td>\n",
+       "      <td>4</td>\n",
+       "      <td>130142.79</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>38190.78</td>\n",
+       "      <td>0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>10000 rows × 12 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      customer_id  credit_score  country  gender  age  tenure    balance  \\\n",
+       "0        15634602           619   France  Female   42       2       0.00   \n",
+       "1        15647311           608    Spain  Female   41       1   83807.86   \n",
+       "2        15619304           502   France  Female   42       8  159660.80   \n",
+       "3        15701354           699   France  Female   39       1       0.00   \n",
+       "4        15737888           850    Spain  Female   43       2  125510.82   \n",
+       "...           ...           ...      ...     ...  ...     ...        ...   \n",
+       "9995     15606229           771   France    Male   39       5       0.00   \n",
+       "9996     15569892           516   France    Male   35      10   57369.61   \n",
+       "9997     15584532           709   France  Female   36       7       0.00   \n",
+       "9998     15682355           772  Germany    Male   42       3   75075.31   \n",
+       "9999     15628319           792   France  Female   28       4  130142.79   \n",
+       "\n",
+       "      products_number  credit_card  active_member  estimated_salary  churn  \n",
+       "0                   1            1              1         101348.88      1  \n",
+       "1                   1            0              1         112542.58      0  \n",
+       "2                   3            1              0         113931.57      1  \n",
+       "3                   2            0              0          93826.63      0  \n",
+       "4                   1            1              1          79084.10      0  \n",
+       "...               ...          ...            ...               ...    ...  \n",
+       "9995                2            1              0          96270.64      0  \n",
+       "9996                1            1              1         101699.77      0  \n",
+       "9997                1            0              1          42085.58      1  \n",
+       "9998                2            1              0          92888.52      1  \n",
+       "9999                1            1              0          38190.78      0  \n",
+       "\n",
+       "[10000 rows x 12 columns]"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "d05a6a87-6e1b-4893-8c5f-137a0316dac4",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(10000, 12)"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "bac29f4d-adb6-4af3-8596-1aa93750de1b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "customer_id           int64\n",
+       "credit_score          int64\n",
+       "country              object\n",
+       "gender               object\n",
+       "age                   int64\n",
+       "tenure                int64\n",
+       "balance             float64\n",
+       "products_number       int64\n",
+       "credit_card           int64\n",
+       "active_member         int64\n",
+       "estimated_salary    float64\n",
+       "churn                 int64\n",
+       "dtype: object"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.dtypes"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "id": "35327776-8a47-4c76-8d83-ef929f94bb78",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method DataFrame.info of       customer_id  credit_score  country  gender  age  tenure    balance  \\\n",
+       "0        15634602           619   France  Female   42       2       0.00   \n",
+       "1        15647311           608    Spain  Female   41       1   83807.86   \n",
+       "2        15619304           502   France  Female   42       8  159660.80   \n",
+       "3        15701354           699   France  Female   39       1       0.00   \n",
+       "4        15737888           850    Spain  Female   43       2  125510.82   \n",
+       "...           ...           ...      ...     ...  ...     ...        ...   \n",
+       "9995     15606229           771   France    Male   39       5       0.00   \n",
+       "9996     15569892           516   France    Male   35      10   57369.61   \n",
+       "9997     15584532           709   France  Female   36       7       0.00   \n",
+       "9998     15682355           772  Germany    Male   42       3   75075.31   \n",
+       "9999     15628319           792   France  Female   28       4  130142.79   \n",
+       "\n",
+       "      products_number  credit_card  active_member  estimated_salary  churn  \n",
+       "0                   1            1              1         101348.88      1  \n",
+       "1                   1            0              1         112542.58      0  \n",
+       "2                   3            1              0         113931.57      1  \n",
+       "3                   2            0              0          93826.63      0  \n",
+       "4                   1            1              1          79084.10      0  \n",
+       "...               ...          ...            ...               ...    ...  \n",
+       "9995                2            1              0          96270.64      0  \n",
+       "9996                1            1              1         101699.77      0  \n",
+       "9997                1            0              1          42085.58      1  \n",
+       "9998                2            1              0          92888.52      1  \n",
+       "9999                1            1              0          38190.78      0  \n",
+       "\n",
+       "[10000 rows x 12 columns]>"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.info"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "3cbc206d-cfc2-41e1-8105-b22f7158111d",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Index(['customer_id', 'credit_score', 'country', 'gender', 'age', 'tenure',\n",
+       "       'balance', 'products_number', 'credit_card', 'active_member',\n",
+       "       'estimated_salary', 'churn'],\n",
+       "      dtype='object')"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "92105748-2620-4649-82f0-e4d9da1372c2",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['customer_id',\n",
+       " 'credit_score',\n",
+       " 'country',\n",
+       " 'gender',\n",
+       " 'age',\n",
+       " 'tenure',\n",
+       " 'balance',\n",
+       " 'products_number',\n",
+       " 'credit_card',\n",
+       " 'active_member',\n",
+       " 'estimated_salary',\n",
+       " 'churn']"
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.columns.tolist()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 28,
+   "id": "24d52ea2-fda0-4f96-b26a-e8f7b09f6c73",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "count     10000.000000\n",
+       "mean     100090.239881\n",
+       "std       57510.492818\n",
+       "min          11.580000\n",
+       "25%       51002.110000\n",
+       "50%      100193.915000\n",
+       "75%      149388.247500\n",
+       "max      199992.480000\n",
+       "Name: estimated_salary, dtype: float64"
+      ]
+     },
+     "execution_count": 28,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"estimated_salary\"].describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "id": "3ff8d6d8-547e-420c-8d5b-b47832e384c7",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.float64(0.002085357661558513)"
+      ]
+     },
+     "execution_count": 50,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"estimated_salary\"].skew()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 67,
+   "id": "ded5075f-767e-41af-84bf-5a61fcab1095",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0       10.026833\n",
+       "1       10.239137\n",
+       "2       10.264288\n",
+       "3        9.873366\n",
+       "4        9.541526\n",
+       "          ...    \n",
+       "9995     9.924275\n",
+       "9996    10.033767\n",
+       "9997     8.410594\n",
+       "9998     9.853543\n",
+       "9999     8.248818\n",
+       "Name: estimated_salary_cube, Length: 10000, dtype: float64"
+      ]
+     },
+     "execution_count": 67,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"estimated_salary_cube\"] = df[\"estimated_salary\"]**(1/5)\n",
+    "df[\"estimated_salary_cube\"] "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 68,
+   "id": "bb41bf1d-1d8b-4cc1-a3bc-1aac3119b947",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.float64(-1.2099462202502564)"
+      ]
+     },
+     "execution_count": 68,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"estimated_salary_cube\"].skew()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "id": "672f4343-c609-4470-91fa-004ed58184c0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([15634602, 15647311, 15619304, ..., 15584532, 15682355, 15628319],\n",
+       "      shape=(10000,))"
+      ]
+     },
+     "execution_count": 30,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"customer_id\"].unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "id": "1ba11c7f-c570-4ada-b5b3-ab264915e6c3",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "count     10000.000000\n",
+       "mean      76485.889288\n",
+       "std       62397.405202\n",
+       "min           0.000000\n",
+       "25%           0.000000\n",
+       "50%       97198.540000\n",
+       "75%      127644.240000\n",
+       "max      250898.090000\n",
+       "Name: balance, dtype: float64"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"balance\"].describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "id": "cf1bc856-3eb0-4ad2-9030-44b04508294f",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.float64(-0.14110871094154379)"
+      ]
+     },
+     "execution_count": 51,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"balance\"].skew()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "0e157b57-38da-40aa-ab05-a96df7c8e839",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "count    10000.000000\n",
+       "mean        38.921800\n",
+       "std         10.487806\n",
+       "min         18.000000\n",
+       "25%         32.000000\n",
+       "50%         37.000000\n",
+       "75%         44.000000\n",
+       "max         92.000000\n",
+       "Name: age, dtype: float64"
+      ]
+     },
+     "execution_count": 32,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"age\"].describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "id": "e17d8434-5126-4281-abe8-afe0c5889b6e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0       3.737670\n",
+       "1       3.713572\n",
+       "2       3.737670\n",
+       "3       3.663562\n",
+       "4       3.761200\n",
+       "          ...   \n",
+       "9995    3.663562\n",
+       "9996    3.555348\n",
+       "9997    3.583519\n",
+       "9998    3.737670\n",
+       "9999    3.332205\n",
+       "Name: age_log, Length: 10000, dtype: float64"
+      ]
+     },
+     "execution_count": 70,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"age_log\"] = np.log(df[\"age\"])\n",
+    "df[\"age_log\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "id": "958edb89-1f5d-4620-bb31-6073d0d968aa",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.float64(0.18202011255958703)"
+      ]
+     },
+     "execution_count": 71,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"age_log\"].skew()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 78,
+   "id": "3ed7832e-c2c4-4e13-acb7-630841886a6e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<Axes: xlabel='age_log', ylabel='Count'>"
+      ]
+     },
+     "execution_count": 78,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      "image/png": "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VPra+GW9zNOfb0iq28dT3n//faZMmcIHH3xA06ZN66HSmrvQPjocDsaMGcNzzz1Hu3btTKi05qrz9+h0OrFYLLz33nv06dOHq6++mhkzZjBv3rwGOzpUnf7t3LmThx9+mGeeeYbk5GSWLl1KSkpKg94LMTU1lUceeYQFCxbg6+t7wa9zp3NOTft4SkM/51S3f+54vqnJ32GtnW8u6iKb1KohQ4YYv//97896bODAgcbDDz9c6bn//Oc/hs1mM8rKyuqjvFpxvj6esmjRIsPPz8/4/PPP66mq2nWuPubm5hqA4eXl5XpYLBbXcytXrjSh2po539/jXXfdZbRp06bSczt37jQAY8+ePfVR3kU7X//uuOMO4+abb6703HfffWcAxpEjR+qjvGpbvHjxGf/2AMNisRheXl5GRUXFGa9xt3NOTfp4ijucc6rbP3c839Tk77C2zjfuMW7mIQzDoLS09KzH+vfvz2effVbpuWXLltGrVy+8vb3ro7xacb4+wsnfzu677z7ef/99t7gH42zO1cfg4GC2bdtW6bnXXnuNr776io8++oi4uLj6KvGine/v8dJLL+XDDz+ksLCQwMBAAPbs2YPVaqVFixb1WWaNna9/RUVFZ1xy8PLycr2uIRoyZMgZ//buvfdeOnTowJNPPumq/9fc7ZxTkz6C+5xzqts/dzzf1OTvsNbONxcR4uQiTJo0yfj222+NlJQUY+vWrcYf//hHw2q1GsuWLTMMwzCeeuop484773S1379/v+Hv7288+uijxs6dO405c+YY3t7exkcffWRWF6pU3T4uXLjQsNlsxt///ncjPT3d9Th+/LhZXahSdft4OneY3VHdPhYUFBgtWrQwbr75ZmPHjh3GqlWrjISEBOP+++83qwvnVd3+zZ0717DZbMZrr71m7Nu3z1i9erXRq1cvo0+fPmZ1oUZOn6XTGM45p6uqj+54zvm1qvp3Onc435yuqj7W1vlGI0MmyczM5M477yQ9PZ2QkBC6du3K0qVLGTZsGADp6ekcOnTI1T4uLo4lS5bw6KOP8ve//52YmBheffVVbrrpJrO6UKXq9vHNN9+koqKCBx98kAcffND1/N133828efPqu/wLUt0+uqPq9jEwMJDly5czYcIEevXqRUREBKNHj+aFF14wqwvnVd3+3XPPPRQUFDB79mwmTpxIaGgoV155JS+++KJZXagVjeGcU5XGcM45n8ZwvqlKXZ1vtGu9iIiIeDTNJhMRERGPpjAkIiIiHk1hSERERDyawpCIiIh4NIUhERER8WgKQyIiIuLRFIZERETEoykMiYiIiEdTGBIRjzZ48GCSkpLMLkNETKQwJCIiIh5NYUhEREQ8msKQiJhq6dKlXHbZZYSGhhIREcHIkSPZt2+f6/iaNWvo3r07vr6+9OrVi48//hiLxcLmzZtdbXbu3MnVV19NYGAgUVFR3HnnnRw7dqxG9eTm5nLXXXcRFhaGv78/V111FXv37q3U5u233yY2NhZ/f39uuOEGZsyYQWhoaI0+T0TMpzAkIqY6ceIEjz32GBs2bGDlypVYrVZuuOEGnE4nBQUFXHvttXTp0oUff/yRP//5zzz55JOVXp+ens6gQYPo3r07GzduZOnSpWRmZjJ69Oga1XPPPfewceNGPv30U9auXYthGFx99dWUl5cD8P333/PAAw/wyCOPsHnzZoYNG8Zf/vKXi/7/ICLm0a71ItKgHD16lKZNm7Jt2zZWr17N008/TVpaGr6+vgD84x//4He/+x2bNm2ie/fuPPPMM6xbt44vv/zS9R5paWnExsaye/du2rVrd97PGzx4MN27d2fmzJns3buXdu3a8f333zNgwAAAsrOziY2NZf78+dxyyy389re/pbCwkM8//9z1HnfccQeff/45x48fr/3/ISJS5zQyJCKm2rdvH2PGjCE+Pp7g4GDi4uIAOHToELt376Zr166uIATQp0+fSq9PTk7m66+/JjAw0PXo0KGD672rY9euXdhsNvr27et6LiIigvbt27Nr1y4Adu/efUYNp38tIu7FZnYBIuLZrr32WmJjY3n77beJiYnB6XSSmJhIWVkZhmFgsVgqtT99MNvpdHLttdfy4osvnvHezZo1q1Yt5xoo/3UdF1KTiLgXhSERMU12dja7du3izTffZODAgQCsXr3adbxDhw689957lJaWYrfbAdi4cWOl97jkkkv497//TevWrbHZLu6U1qlTJyoqKli3bl2ly2R79uyhY8eOrprWr19f6XWn1yQi7kWXyUTENGFhYURERPDWW2/x888/89VXX/HYY4+5jo8ZMwan08nvf/97du3axZdffsnf/vY3ANfozIMPPkhOTg633XYb69evZ//+/Sxbtoz77rsPh8NRrXoSEhK47rrr+N3vfsfq1avZsmULd9xxB82bN+e6664DYMKECSxZsoQZM2awd+9e3nzzTb744oszRotExH0oDImIaaxWK4sWLSI5OZnExEQeffRRXnrpJdfx4OBgPvvsMzZv3kz37t2ZPHkyzzzzDIDrPqKYmBi+//57HA4HI0aMIDExkUceeYSQkBCs1uqf4ubOnUvPnj0ZOXIk/fv3xzAMlixZgre3NwCXXnopb7zxBjNmzKBbt24sXbqURx99tNJ9TSLiXjSbTETcynvvvce9995LXl4efn5+ZpcDwO9+9zt++uknvvvuO7NLEZEa0D1DItKgvfPOO8THx9O8eXO2bNnCk08+yejRo00NQn/7298YNmwYAQEBfPHFF8yfP5/XXnvNtHpE5OIoDIlIg5aRkcEzzzxDRkYGzZo145ZbbrngRQ4PHTpEp06dznl8586dtGzZsto1rV+/nunTp1NQUEB8fDyvvvoq999/f7XfR0QaBl0mE5FGq6KiggMHDpzzeG3MQBMR96cwJCIiIh5Ns8lERETEoykMiYiIiEdTGBIRERGPpjAkIiIiHk1hSERERDyawpCIiIh4NIUhERER8WgKQyIiIuLR/j8JDdW0zzRfrQAAAABJRU5ErkJggg==",
+      "text/plain": [
+       "<Figure size 640x480 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import seaborn as sns\n",
+    "sns.histplot(df[\"age_log\"], kde=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 76,
+   "id": "c6857c3b-1858-4797-86b9-9613320dd731",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0       3.761200\n",
+       "1       3.737670\n",
+       "2       3.761200\n",
+       "3       3.688879\n",
+       "4       3.784190\n",
+       "          ...   \n",
+       "9995    3.688879\n",
+       "9996    3.583519\n",
+       "9997    3.610918\n",
+       "9998    3.761200\n",
+       "9999    3.367296\n",
+       "Name: age_log, Length: 10000, dtype: float64"
+      ]
+     },
+     "execution_count": 76,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"age_log\"] = np.log1p(df[\"age\"])\n",
+    "df[\"age_log\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "id": "4ed01803-abd1-4abd-b26c-3539b02cd9bc",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.float64(0.2033604151698438)"
+      ]
+     },
+     "execution_count": 77,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"age_log\"].skew()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "id": "94da48fa-2201-4bea-b28a-dec13e747c70",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "count    10000.000000\n",
+       "mean       650.528800\n",
+       "std         96.653299\n",
+       "min        350.000000\n",
+       "25%        584.000000\n",
+       "50%        652.000000\n",
+       "75%        718.000000\n",
+       "max        850.000000\n",
+       "Name: credit_score, dtype: float64"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"credit_score\"].describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "id": "26156f83-1575-473a-aa4e-8151f7d43e1a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "np.float64(-0.07160660820092675)"
+      ]
+     },
+     "execution_count": 53,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"credit_score\"].skew()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "ef78f758-fb5d-4ad8-98ec-9146145db010",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array(['France', 'Spain', 'Germany'], dtype=object)"
+      ]
+     },
+     "execution_count": 34,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"country\"].unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "7841d1cc-ca57-4d17-ae7a-7f8079367060",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array(['Female', 'Male'], dtype=object)"
+      ]
+     },
+     "execution_count": 35,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"gender\"].unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "id": "6de447ce-e3fb-49ce-b07b-5385d1802313",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([1, 0])"
+      ]
+     },
+     "execution_count": 36,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"credit_card\"].unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "id": "7fd837c7-bbe5-4051-b142-3ff64f5f2c8b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([1, 0])"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"active_member\"].unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "id": "33f36b61-551e-4f58-a4a6-e84026b6ec0b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([1, 0])"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"churn\"].unique()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "id": "e0becac6-166f-4784-99d2-1a08e3fb1af0",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0       Female\n",
+       "1       Female\n",
+       "2       Female\n",
+       "3       Female\n",
+       "4       Female\n",
+       "         ...  \n",
+       "9995      Male\n",
+       "9996      Male\n",
+       "9997    Female\n",
+       "9998      Male\n",
+       "9999    Female\n",
+       "Name: gender, Length: 10000, dtype: object"
+      ]
+     },
+     "execution_count": 43,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"gender\"]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "id": "e2ffb9e7-233c-4c0e-ade7-5a1e2e301343",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "gender\n",
+       "Male      5457\n",
+       "Female    4543\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 46,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"gender\"].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "id": "7e30f496-c7bf-4813-8168-da26d8164c72",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "country\n",
+       "France     5014\n",
+       "Germany    2509\n",
+       "Spain      2477\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"country\"].value_counts()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "id": "a02ebf89-6c2b-4533-8285-cfba046730fa",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "active_member\n",
+       "1    5151\n",
+       "0    4849\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 48,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"active_member\"].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "id": "44ce6275-d80c-4540-afde-e212083e0aab",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "credit_card\n",
+       "1    7055\n",
+       "0    2945\n",
+       "Name: count, dtype: int64"
+      ]
+     },
+     "execution_count": 49,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"credit_card\"].value_counts()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "id": "d8744861-6e30-410f-8c63-476124bfd6be",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "customer_id              0.001149\n",
+       "credit_score            -0.071607\n",
+       "age                      1.011320\n",
+       "tenure                   0.010991\n",
+       "balance                 -0.141109\n",
+       "products_number          0.745568\n",
+       "credit_card             -0.901812\n",
+       "active_member           -0.060437\n",
+       "estimated_salary         0.002085\n",
+       "churn                    1.471611\n",
+       "estimated_salary_log    -2.001146\n",
+       "estimated_salary_sqrt   -0.578229\n",
+       "estimated_salary_cube   -1.209946\n",
+       "age_log                  0.203360\n",
+       "dtype: float64"
+      ]
+     },
+     "execution_count": 79,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.skew(numeric_only=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "id": "5c22c399-7f40-406c-ac77-b5d240ac5568",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>customer_id</th>\n",
+       "      <th>credit_score</th>\n",
+       "      <th>country</th>\n",
+       "      <th>gender</th>\n",
+       "      <th>age</th>\n",
+       "      <th>tenure</th>\n",
+       "      <th>balance</th>\n",
+       "      <th>products_number</th>\n",
+       "      <th>credit_card</th>\n",
+       "      <th>active_member</th>\n",
+       "      <th>estimated_salary</th>\n",
+       "      <th>churn</th>\n",
+       "      <th>age_log</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>15634602</td>\n",
+       "      <td>619</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>42</td>\n",
+       "      <td>2</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>101348.88</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3.761200</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>15647311</td>\n",
+       "      <td>608</td>\n",
+       "      <td>Spain</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>41</td>\n",
+       "      <td>1</td>\n",
+       "      <td>83807.86</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>112542.58</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3.737670</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>15619304</td>\n",
+       "      <td>502</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>42</td>\n",
+       "      <td>8</td>\n",
+       "      <td>159660.80</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>113931.57</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3.761200</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>15701354</td>\n",
+       "      <td>699</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>39</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>2</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>93826.63</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3.688879</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>15737888</td>\n",
+       "      <td>850</td>\n",
+       "      <td>Spain</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>43</td>\n",
+       "      <td>2</td>\n",
+       "      <td>125510.82</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>79084.10</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3.784190</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9995</th>\n",
+       "      <td>15606229</td>\n",
+       "      <td>771</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>39</td>\n",
+       "      <td>5</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>96270.64</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3.688879</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9996</th>\n",
+       "      <td>15569892</td>\n",
+       "      <td>516</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>35</td>\n",
+       "      <td>10</td>\n",
+       "      <td>57369.61</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>101699.77</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3.583519</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9997</th>\n",
+       "      <td>15584532</td>\n",
+       "      <td>709</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>36</td>\n",
+       "      <td>7</td>\n",
+       "      <td>0.00</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>1</td>\n",
+       "      <td>42085.58</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3.610918</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9998</th>\n",
+       "      <td>15682355</td>\n",
+       "      <td>772</td>\n",
+       "      <td>Germany</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>42</td>\n",
+       "      <td>3</td>\n",
+       "      <td>75075.31</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>92888.52</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3.761200</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9999</th>\n",
+       "      <td>15628319</td>\n",
+       "      <td>792</td>\n",
+       "      <td>France</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>28</td>\n",
+       "      <td>4</td>\n",
+       "      <td>130142.79</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>38190.78</td>\n",
+       "      <td>0</td>\n",
+       "      <td>3.367296</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>10000 rows × 13 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      customer_id  credit_score  country  gender  age  tenure    balance  \\\n",
+       "0        15634602           619   France  Female   42       2       0.00   \n",
+       "1        15647311           608    Spain  Female   41       1   83807.86   \n",
+       "2        15619304           502   France  Female   42       8  159660.80   \n",
+       "3        15701354           699   France  Female   39       1       0.00   \n",
+       "4        15737888           850    Spain  Female   43       2  125510.82   \n",
+       "...           ...           ...      ...     ...  ...     ...        ...   \n",
+       "9995     15606229           771   France    Male   39       5       0.00   \n",
+       "9996     15569892           516   France    Male   35      10   57369.61   \n",
+       "9997     15584532           709   France  Female   36       7       0.00   \n",
+       "9998     15682355           772  Germany    Male   42       3   75075.31   \n",
+       "9999     15628319           792   France  Female   28       4  130142.79   \n",
+       "\n",
+       "      products_number  credit_card  active_member  estimated_salary  churn  \\\n",
+       "0                   1            1              1         101348.88      1   \n",
+       "1                   1            0              1         112542.58      0   \n",
+       "2                   3            1              0         113931.57      1   \n",
+       "3                   2            0              0          93826.63      0   \n",
+       "4                   1            1              1          79084.10      0   \n",
+       "...               ...          ...            ...               ...    ...   \n",
+       "9995                2            1              0          96270.64      0   \n",
+       "9996                1            1              1         101699.77      0   \n",
+       "9997                1            0              1          42085.58      1   \n",
+       "9998                2            1              0          92888.52      1   \n",
+       "9999                1            1              0          38190.78      0   \n",
+       "\n",
+       "       age_log  \n",
+       "0     3.761200  \n",
+       "1     3.737670  \n",
+       "2     3.761200  \n",
+       "3     3.688879  \n",
+       "4     3.784190  \n",
+       "...        ...  \n",
+       "9995  3.688879  \n",
+       "9996  3.583519  \n",
+       "9997  3.610918  \n",
+       "9998  3.761200  \n",
+       "9999  3.367296  \n",
+       "\n",
+       "[10000 rows x 13 columns]"
+      ]
+     },
+     "execution_count": 90,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "df = df.drop([\"estimated_salary_sqrt\",\"estimated_salary_cube\"],axis=1)\n",
+    "df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "id": "1cb41858-e98b-4570-bb41-140393f46168",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "customer_id         0.001149\n",
+       "credit_score       -0.071607\n",
+       "age                 1.011320\n",
+       "tenure              0.010991\n",
+       "balance            -0.141109\n",
+       "products_number     0.745568\n",
+       "credit_card        -0.901812\n",
+       "active_member      -0.060437\n",
+       "estimated_salary    0.002085\n",
+       "churn               1.471611\n",
+       "age_log             0.203360\n",
+       "dtype: float64"
+      ]
+     },
+     "execution_count": 92,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.skew(numeric_only=True)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 95,
+   "id": "b755ee1a-5a18-4f3a-8ebf-b1322675cc8d",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Index(['customer_id', 'credit_score', 'country', 'gender', 'age', 'tenure',\n",
+       "       'balance', 'products_number', 'credit_card', 'active_member',\n",
+       "       'estimated_salary', 'churn', 'age_log'],\n",
+       "      dtype='object')"
+      ]
+     },
+     "execution_count": 95,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.columns"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 97,
+   "id": "f562d575-abb0-42c4-9d44-fb459a019f4d",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       15634602\n",
+       "1       15647311\n",
+       "2       15619304\n",
+       "3       15701354\n",
+       "4       15737888\n",
+       "          ...   \n",
+       "9995    15606229\n",
+       "9996    15569892\n",
+       "9997    15584532\n",
+       "9998    15682355\n",
+       "9999    15628319\n",
+       "Name: customer_id, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 97,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"customer_id\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 98,
+   "id": "173fe2dd-6eed-472f-b531-38c07bff0f23",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       619\n",
+       "1       608\n",
+       "2       502\n",
+       "3       699\n",
+       "4       850\n",
+       "       ... \n",
+       "9995    771\n",
+       "9996    516\n",
+       "9997    709\n",
+       "9998    772\n",
+       "9999    792\n",
+       "Name: credit_score, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 98,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"credit_score\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "id": "91bec34b-3b1f-4d4a-8c19-6695499f56b8",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0        France\n",
+       "1         Spain\n",
+       "2        France\n",
+       "3        France\n",
+       "4         Spain\n",
+       "         ...   \n",
+       "9995     France\n",
+       "9996     France\n",
+       "9997     France\n",
+       "9998    Germany\n",
+       "9999     France\n",
+       "Name: country, Length: 10000, dtype: object>"
+      ]
+     },
+     "execution_count": 99,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"country\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 100,
+   "id": "9c39744e-67fb-4ec6-80a1-c1dd62dd4308",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       Female\n",
+       "1       Female\n",
+       "2       Female\n",
+       "3       Female\n",
+       "4       Female\n",
+       "         ...  \n",
+       "9995      Male\n",
+       "9996      Male\n",
+       "9997    Female\n",
+       "9998      Male\n",
+       "9999    Female\n",
+       "Name: gender, Length: 10000, dtype: object>"
+      ]
+     },
+     "execution_count": 100,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"gender\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 101,
+   "id": "f0f10af8-c41e-4cd2-9ce6-c192e17de901",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       42\n",
+       "1       41\n",
+       "2       42\n",
+       "3       39\n",
+       "4       43\n",
+       "        ..\n",
+       "9995    39\n",
+       "9996    35\n",
+       "9997    36\n",
+       "9998    42\n",
+       "9999    28\n",
+       "Name: age, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 101,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"age\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 102,
+   "id": "517bd29b-fda3-4b3c-bfc4-d3ac20013764",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0        2\n",
+       "1        1\n",
+       "2        8\n",
+       "3        1\n",
+       "4        2\n",
+       "        ..\n",
+       "9995     5\n",
+       "9996    10\n",
+       "9997     7\n",
+       "9998     3\n",
+       "9999     4\n",
+       "Name: tenure, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 102,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"tenure\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 103,
+   "id": "a0d0d622-90cd-44ce-b947-9cb3eaeb6cbc",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0            0.00\n",
+       "1        83807.86\n",
+       "2       159660.80\n",
+       "3            0.00\n",
+       "4       125510.82\n",
+       "          ...    \n",
+       "9995         0.00\n",
+       "9996     57369.61\n",
+       "9997         0.00\n",
+       "9998     75075.31\n",
+       "9999    130142.79\n",
+       "Name: balance, Length: 10000, dtype: float64>"
+      ]
+     },
+     "execution_count": 103,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"balance\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 104,
+   "id": "6eb00f92-9d96-4e96-b05d-5022d3ec1915",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       1\n",
+       "1       1\n",
+       "2       3\n",
+       "3       2\n",
+       "4       1\n",
+       "       ..\n",
+       "9995    2\n",
+       "9996    1\n",
+       "9997    1\n",
+       "9998    2\n",
+       "9999    1\n",
+       "Name: products_number, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 104,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"products_number\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 106,
+   "id": "0fe8e276-2390-4a3e-97ae-29683b2cf0d5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       1\n",
+       "1       1\n",
+       "2       0\n",
+       "3       0\n",
+       "4       1\n",
+       "       ..\n",
+       "9995    0\n",
+       "9996    1\n",
+       "9997    1\n",
+       "9998    0\n",
+       "9999    0\n",
+       "Name: active_member, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 106,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"active_member\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 107,
+   "id": "17188061-9c01-43c4-9033-524f4dd33218",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       1\n",
+       "1       0\n",
+       "2       1\n",
+       "3       0\n",
+       "4       1\n",
+       "       ..\n",
+       "9995    1\n",
+       "9996    1\n",
+       "9997    0\n",
+       "9998    1\n",
+       "9999    1\n",
+       "Name: credit_card, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 107,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"credit_card\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 110,
+   "id": "0b7ffa95-c565-420d-b6e1-d3e20e91b0da",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       101348.88\n",
+       "1       112542.58\n",
+       "2       113931.57\n",
+       "3        93826.63\n",
+       "4        79084.10\n",
+       "          ...    \n",
+       "9995     96270.64\n",
+       "9996    101699.77\n",
+       "9997     42085.58\n",
+       "9998     92888.52\n",
+       "9999     38190.78\n",
+       "Name: estimated_salary, Length: 10000, dtype: float64>"
+      ]
+     },
+     "execution_count": 110,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"estimated_salary\"].unique\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 111,
+   "id": "c68eae57-ab55-4d21-9749-674bf93dc681",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       1\n",
+       "1       0\n",
+       "2       1\n",
+       "3       0\n",
+       "4       0\n",
+       "       ..\n",
+       "9995    0\n",
+       "9996    0\n",
+       "9997    1\n",
+       "9998    1\n",
+       "9999    0\n",
+       "Name: churn, Length: 10000, dtype: int64>"
+      ]
+     },
+     "execution_count": 111,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"churn\"].unique\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 112,
+   "id": "07dd4090-64cc-478f-8850-59503e569263",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<bound method Series.unique of 0       3.761200\n",
+       "1       3.737670\n",
+       "2       3.761200\n",
+       "3       3.688879\n",
+       "4       3.784190\n",
+       "          ...   \n",
+       "9995    3.688879\n",
+       "9996    3.583519\n",
+       "9997    3.610918\n",
+       "9998    3.761200\n",
+       "9999    3.367296\n",
+       "Name: age_log, Length: 10000, dtype: float64>"
+      ]
+     },
+     "execution_count": 112,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[\"age_log\"].unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 113,
+   "id": "f5452033-9bbe-4c6c-8e47-cb0777a50ed1",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>customer_id</th>\n",
+       "      <th>credit_score</th>\n",
+       "      <th>country</th>\n",
+       "      <th>gender</th>\n",
+       "      <th>age</th>\n",
+       "      <th>tenure</th>\n",
+       "      <th>balance</th>\n",
+       "      <th>products_number</th>\n",
+       "      <th>credit_card</th>\n",
+       "      <th>active_member</th>\n",
+       "      <th>estimated_salary</th>\n",
+       "      <th>churn</th>\n",
+       "      <th>age_log</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "Empty DataFrame\n",
+       "Columns: [customer_id, credit_score, country, gender, age, tenure, balance, products_number, credit_card, active_member, estimated_salary, churn, age_log]\n",
+       "Index: []"
+      ]
+     },
+     "execution_count": 113,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df[df.duplicated()]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 114,
+   "id": "c5836329-c264-462f-b7ce-9fa222fc471c",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "customer_id         0\n",
+       "credit_score        0\n",
+       "country             0\n",
+       "gender              0\n",
+       "age                 0\n",
+       "tenure              0\n",
+       "balance             0\n",
+       "products_number     0\n",
+       "credit_card         0\n",
+       "active_member       0\n",
+       "estimated_salary    0\n",
+       "churn               0\n",
+       "age_log             0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 114,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 116,
+   "id": "1e8f5149-b3bd-4703-ab01-13b96701cbea",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.to_csv(\"cleaned_churn_data.csv\", index=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "19d25351-9b60-449b-ad6b-df3c1130e4d5",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
