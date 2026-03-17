@@ -8,9 +8,9 @@ This project presents an end-to-end **Employee Retention Analytics Dashboard** b
 
 ## 📑 Table of Contents
 
-- [Project Overview](#project-overview)
-- [Business Problem](#business-problem)
-- [Dataset](#dataset)
+- [Project Overview](##project-overview)
+- [Business Problem](##business-problem)
+- [Dataset](##dataset)
 - [Tools & Techniques](#tools--techniques)
 - [Project Structure](#project-structure)
 - [Data Cleaning & Preparation](#data-cleaning--preparation)
@@ -36,7 +36,7 @@ This HR analytics project focuses on understanding employee attrition and improv
 
 ---
 
-## ❗ Business Problem
+##  Business Problem
 
 Employee attrition leads to increased hiring costs, reduced productivity, and operational inefficiencies. Organizations require data-driven insights to understand workforce behavior and improve retention.
 
@@ -73,20 +73,37 @@ Employee attrition leads to increased hiring costs, reduced productivity, and op
 ## 📂 Project Structure
 Employee-Retention-Analytics/
 │
-├── dataset/
-│ └── cleaned_hr_dataset.csv
+├── 📂 data/
+│   ├── raw/
+│   │   └── hr_dataset.csv
+│   │
+│   └── processed/
+│       └── cleaned_hr_dataset.csv
 │
-├── dashboard/
-│ ├── workforce.png
-│ ├── recruitment.png
-│ ├── performance.png
-│ └── engagement.png
+├── 📂 notebooks/
+│   └── hr_data_exploration.ipynb
 │
-├── presentation/
-│ └── employee_retention_presentation.pptx
+├── 📂 scripts/
+│   └── data_cleaning.py
 │
-└── README.md
-
+├── 📂 dashboard/
+│   ├── workforce_dashboard.png
+│   ├── recruitment_dashboard.png
+│   ├── performance_dashboard.png
+│   └── engagement_dashboard.png
+│
+├── 📂 tableau/
+│   └── employee_retention_dashboard.twbx
+│
+├── 📂 presentation/
+│   └── employee_retention_presentation.pptx
+│
+├── 📂 docs/
+│   └── project_report.pdf
+│
+├── README.md
+├── requirements.txt
+└── .gitignore
 ---
 
 ## 🧹 Data Cleaning & Preparation
