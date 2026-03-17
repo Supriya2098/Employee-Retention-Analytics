@@ -161,16 +161,16 @@ Business Recommendations
 ### 🔹 Workforce Analytics
 <img width="1491" height="753" alt="Screenshot 2026-03-16 210120" src="https://github.com/user-attachments/assets/0b219134-0bff-4d66-b28b-7567766498a7" />
 
-[Workforce](https://public.tableau.com/authoring/EnterpriseHRAnalyticsDashboard/Dashboard1#1)
+[Workforce](https://public.tableau.com/views/EnterpriseHRAnalyticsDashboard/Dashboard1#1)
 
 ### 🔹 Recruitment Analytics
 <img width="1481" height="742" alt="Screenshot 2026-03-16 210100" src="https://github.com/user-attachments/assets/5a579c91-b07b-47d3-ada2-ae861c1eef86" />
 
-[Recruitment](https://public.tableau.com/authoring/EnterpriseHRAnalyticsDashboard/Dashboard2#1)
+[Recruitment](https://public.tableau.com/views/EnterpriseHRAnalyticsDashboard/Dashboard2#1)
 
 ### 🔹 Performance Analytics
 <img width="1481" height="746" alt="Screenshot 2026-03-16 210014" src="https://github.com/user-attachments/assets/649da459-1dd0-4f54-8b2c-9a3b7ea9f6d9" />
-[Performance](https://public.tableau.com/authoring/EnterpriseHRAnalyticsDashboard/Dashboard3#1)
+[Performance](https://public.tableau.com/views/EnterpriseHRAnalyticsDashboard/Dashboard3#1)
 
 ### 🔹 Engagement Analytics
 <img width="1483" height="738" alt="Screenshot 2026-03-16 210147" src="https://github.com/user-attachments/assets/d7d5a1d9-2e6f-47e3-8de7-26f217da7b46" />
